@@ -6,7 +6,7 @@ export default function Button({ text = "", variant = "default", children, onPre
       <TouchableOpacity
         disabled={disabled}
         onPress={onPress}
-        className={`justify-center flex-row items-center py-2 px-2 rounded-md shadow bg-amber-500
+        className={`justify-center flex-row items-center py-2 px-[12px] rounded-md shadow bg-amber-500
                     ${variant === "large" && "bg-amber-500"}
                     ${variant === "secondary" && "bg-amber-400"}
                     ${variant === "text" && "bg-transparent shadow-none"}
