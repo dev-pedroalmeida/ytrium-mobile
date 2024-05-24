@@ -17,9 +17,11 @@ export default function Navbar({ props }) {
   return (
     <View className="p-4 items-center justify-between flex-row h-fit mt-4">
       <View className="items-center flex-row">
-        <Button variant="action" classes="px-0 py-1 mr-3">
-          <Ionicons name="menu" size={28} />
-        </Button>
+        {route.name !== "landing" && (
+          <Button variant="action" classes="px-0 py-1 mr-3">
+            <Ionicons name="menu" size={28} />
+          </Button>
+        )}
         {route.name === "landing" && (
           <>
             <YtriumLogo color="#fff" />

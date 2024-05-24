@@ -13,9 +13,9 @@ export default function App() {
   return (
     <AuthContext.Provider value={{
       user: user, 
-      setUser: _setUser, 
+      _setUser: _setUser, 
       isAuth: isAuth, 
-      setIsAuth: _setIsAuth
+      _setIsAuth: _setIsAuth
     }}>
       <View className="flex-1">
         <StatusBar style="auto" />
