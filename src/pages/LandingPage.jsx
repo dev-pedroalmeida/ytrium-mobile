@@ -2,8 +2,12 @@ import { ImageBackground, Text, View } from "react-native";
 
 import gradient from "../../assets/image3.png";
 import Button from "../components/Button";
+import { useState } from "react";
+import SignUp from "../components/SignUp"
 
 export default function LandindPage({navigation, route}) {
+
+  const [isSign, setIsSign] = useState(false)
 
   return (
     <>
@@ -19,9 +23,15 @@ export default function LandindPage({navigation, route}) {
           Explore cursos de tecnologia, suba de nível e alcance seus objetivos.
         </Text>
         <View className="mt-20 px-4">
-          <Button text="Cadastre-se" variant="large" />
+          <Button onPress={() => setIsSign(true)} text="Cadastre-se" variant="large" />
         </View>
       </View>
+
+      {isSign && <SignUp 
+        navigation={navigation}
+        isOpen={isSign}
+        onClose={() => setIsSign(false)}
+      />}
     </>
   );
 }
