@@ -50,7 +50,7 @@ export default function Login({ isOpen, onClose, navigation }) {
         <View className="my-6">
           <Text className>Senha:</Text>
           <TextInput
-            keyboardType="visible-password"
+            secureTextEntry={true}
             placeholder="********"
             className="border border-zinc-300 rounded-lg py-1 px-2"
             value={password}

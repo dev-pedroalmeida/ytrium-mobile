@@ -29,7 +29,7 @@ export default function Login({ isOpen, onClose, navigation }) {
         <View className="mt-6">
           <Text className>Senha:</Text>
           <TextInput
-            keyboardType="visible-password"
+            secureTextEntry={true}
             placeholder="********"
             className="border border-zinc-300 rounded-lg py-1 px-2"
           />
@@ -37,7 +37,7 @@ export default function Login({ isOpen, onClose, navigation }) {
         <View className="my-6">
           <Text className>Confirmar Senha:</Text>
           <TextInput
-            keyboardType="visible-password"
+            secureTextEntry={true}
             placeholder="********"
             className="border border-zinc-300 rounded-lg py-1 px-2"
           />
