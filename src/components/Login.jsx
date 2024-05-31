@@ -2,6 +2,7 @@ import { Alert, Modal, Text, TextInput, View } from "react-native";
 import Button from "./Button";
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import axios from "axios";
 
 export default function Login({ isOpen, onClose, navigation }) {
   const [email, setEmail] = useState("");
@@ -12,17 +13,35 @@ export default function Login({ isOpen, onClose, navigation }) {
 
   function handleLogin() {
     try {
+      setError("")
       if (email === "" || password === "") {
         setError("Preencha todos os campos!");
         return;
       } else {
-        _setUser({
-          email,
-          name: "Pedro",
-        });
-        _setIsAuth(true);
-
-        navigation.navigate("home");
+        axios
+          .post("http://192.168.15.4:3000/login", {
+            email: email,
+            senha: password,
+          }, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("DATA", res?.data);
+            if (res?.status == 200) {
+              setEmail("")
+              setPassword("")
+              onClose()
+              _setUser(res.data);
+              _setIsAuth(true);
+              navigation.navigate("home")
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            if (err?.response?.status == 400) {
+              setError("Email ou senha inválidos!");
+            }
+          })
       }
     } catch (err) {
       Alert.alert(err);
@@ -41,6 +60,10 @@ export default function Login({ isOpen, onClose, navigation }) {
           <Text>Email:</Text>
           <TextInput
             keyboardType="email-address"
+            inputMode="email"
+            textContentType="emailAddress"
+            autoComplete="email"
+            autoCapitalize="none"
             placeholder="email@hotmail.com"
             className="border border-zinc-300 rounded-lg py-1 px-2"
             value={email}
