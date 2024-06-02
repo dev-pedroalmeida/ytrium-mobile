@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import Button from "./Button";
 
-export default function CourseCard({ course, navigation }) {
+export default function CourseCardSubbed({ course, navigation }) {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("course", {'id': course.cur_id})} className="mb-4">
       <View className="p-4 bg-white rounded-md min-w-[90vw] max-w-[90vw]">
@@ -25,12 +26,13 @@ export default function CourseCard({ course, navigation }) {
             )}
           />
         </View>
-        <View className="flex-row justify-between mt-3">
-          <Text>{course.cur_qtdInscritos} inscritos</Text>
-          <Text className="p-1 bg-amber-500 text-white rounded font-bold">
-            {course.cur_dificuldade}
-          </Text>
+        <View className="flex-row justify-between mt-1 mb-4">
+          <Text>Módulos {course?.completos} / {course?.quantidade}</Text>
         </View>
+        <Button 
+          text="Continuar"
+          onPress={() => navigation.navigate("subscribed", {'id': course.cur_id})}
+        />
       </View>
     </TouchableOpacity>
   );

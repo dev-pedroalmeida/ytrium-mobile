@@ -1,4 +1,4 @@
-import { FontAwesome5, Ionicons, MaterialCommunityIcons, MaterialIcons, Octicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons, MaterialIcons, Octicons } from "@expo/vector-icons";
 import { useContext } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import AuthContext from "../context/AuthContext";

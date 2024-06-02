@@ -10,6 +10,7 @@ import ModulePage from "../pages/ModulePage";
 import ContentPage from "../pages/ContentPage";
 import QuizzPage from "../pages/QuizzPage";
 import StudentProfile from "../pages/StudentProfile";
+import SubscriptionsPage from "../pages/SubscriptionsPage";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ export default function Navigation() {
         <Stack.Screen name="landing" component={LandindPage} />
         <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="course" component={CoursePage} />
+        <Stack.Screen name="subscriptions" component={SubscriptionsPage} /> 
         <Stack.Screen name="subscribed" component={CourseSubscribed} /> 
         <Stack.Screen name="module" component={ModulePage} /> 
         <Stack.Screen name="content" component={ContentPage} /> 
