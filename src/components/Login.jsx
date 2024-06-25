@@ -33,7 +33,6 @@ export default function Login({ isOpen, onClose, navigation }) {
               onClose()
               _setUser(res.data);
               _setIsAuth(true);
-              navigation.navigate("home")
             }
           })
           .catch((err) => {

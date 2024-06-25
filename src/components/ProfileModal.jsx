@@ -15,7 +15,6 @@ export default function ProfileModal({ isOpen, onClose, navigation }) {
       onClose()
       _setUser({})
       _setIsAuth(false)
-      navigation.navigate("landing")
     })
     .catch(err => {
       console.log(err)
@@ -49,7 +48,7 @@ export default function ProfileModal({ isOpen, onClose, navigation }) {
             <TouchableOpacity 
               onPress={() => {
                 onClose()
-                navigation.navigate("profile")
+                navigation.jumpTo("profile")
               }}
               className="rounded-lg transition p-4 cursor-pointer active:bg-amber-100 flex-row items-center mb-2"
             >

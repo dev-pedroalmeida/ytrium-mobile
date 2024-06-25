@@ -1,7 +1,8 @@
 import { Alert, FlatList, Text, View } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
 import CourseCardSubbed from "../components/CourseCardSubbed";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function SubscriptionsPage({navigation}) {
 
@@ -28,9 +29,9 @@ export default function SubscriptionsPage({navigation}) {
     })
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     getSubbedCourses()
-  }, [])
+  }, []))
 
   return (
     <View className="px-4 py-2 mb-12">

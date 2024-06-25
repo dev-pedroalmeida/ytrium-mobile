@@ -1,40 +1,54 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FlatList, ScrollView, Text, View } from "react-native";
 import Button from "../components/Button";
 import RichText from "../components/RichText";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function CoursePage({ route, navigation }) {
   const [course, setCourse] = useState({});
 
+  const [isLoading, setIsLoading] = useState(true);
+
   async function subscribe() {
-    await axios.post(`http://192.168.15.4:3000/student/subscribe`,
-      {curso: course},
-      {withCredentials: true}
-    )
-    .then(res => {
-      console.log(res)
-      navigation.navigate("subscriptions")
-    })
+    await axios
+      .post(
+        `http://192.168.15.4:3000/student/subscribe`,
+        { curso: course },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        navigation.jumpTo("subscriptions");
+      })
+      .catch((err) => console.log(err));
   }
 
   function getCourseById(id) {
-    axios.get(`http://192.168.15.4:3000/course/${id}`, {
-      withCredentials: true,
-    })
-    .then(res => {
-      setCourse(res.data)
-    })
+    axios
+      .get(`http://192.168.15.4:3000/course/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setCourse(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
   }
 
-  useEffect(() => {
-    getCourseById(route.params.id);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoading(true);
+      getCourseById(route.params.id);
+    }, [route.params.id])
+  );
 
   return (
     <>
-      {course ? (
+      {isLoading ? (
+        <Text></Text>
+      ) : (
         <ScrollView>
           <View className="px-4 py-2 mb-12">
             <Text className="text-3xl font-bold mb-4">{course.cur_titulo}</Text>
@@ -70,40 +84,45 @@ export default function CoursePage({ route, navigation }) {
                 {course?.cur_qtdInscritos} inscritos
               </Text>
             </View>
-            {
-              course?.alc_status == null ? (
-                <Button
-                  text="INSCREVER"
-                  onPress={subscribe}
-                />
-              ) : (
-                <Button
-                  text="CONTINUAR"
-                  onPress={() =>
-                    navigation.navigate("subscriptions")
-                  }
-                />
-              )
-            }
+            {course?.alc_status == null ? (
+              <Button text="INSCREVER" onPress={subscribe} />
+            ) : (
+              <Button
+                text="CONTINUAR"
+                onPress={() =>
+                  navigation.jumpTo("courseSubscribed", {
+                    screen: "subscribed",
+                    params: { id: course.cur_id },
+                  })
+                }
+              />
+            )}
             <View className="my-10">
               <Text className="text-xl font-bold mb-2">Descrição</Text>
               <RichText data={course.cur_descricao} />
             </View>
             <View>
               <Text className="text-xl font-bold mb-2">Módulos</Text>
-              {course?.modulos?.map(mod => {
+              {course?.modulos?.map((mod) => {
                 return (
-                  <View key={mod.id} className="p-1 bg-amber-200/50 mb-2 flex-row">
-                    <Ionicons name="library" color={'rgb(245 158 11)'} size={20} />
-                    <Text className="text-amber-500 text-base font-bold ml-2">{mod.titulo}</Text>
+                  <View
+                    key={mod.id}
+                    className="p-1 bg-amber-200/50 mb-2 flex-row"
+                  >
+                    <Ionicons
+                      name="library"
+                      color={"rgb(245 158 11)"}
+                      size={20}
+                    />
+                    <Text className="text-amber-500 text-base font-bold ml-2">
+                      {mod.titulo}
+                    </Text>
                   </View>
-                )
+                );
               })}
             </View>
           </View>
         </ScrollView>
-      ) : (
-        <Text>Nada encontrado!</Text>
       )}
     </>
   );

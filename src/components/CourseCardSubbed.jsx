@@ -4,14 +4,24 @@ import Button from "./Button";
 
 export default function CourseCardSubbed({ course, navigation }) {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("course", {'id': course.cur_id})} className="mb-4">
+    <TouchableOpacity
+      onPress={() =>
+        navigation.jumpTo("courseSubscribed", {
+          screen: "subscribed",
+          params: { id: course.cur_id },
+        })
+      }
+      className="mb-4"
+    >
       <View className="p-4 bg-white rounded-md min-w-[90vw] max-w-[90vw]">
         <View className="flex-row items-center mb-3 overflow-hidden">
           <Ionicons name="sparkles" size={20} color={"#F59E0B"} />
           <View className="ml-3 h-[3px] flex-1 bg-amber-500"></View>
-          {course?.alc_status == 1 &&
-            <Text className="ml-3 py-0.5 px-1 text-sm font-bold tracking-tight rounded-lg bg-amber-500 text-white">Completo</Text>
-          }
+          {course?.alc_status == 1 && (
+            <Text className="ml-3 py-0.5 px-1 text-sm font-bold tracking-tight rounded-lg bg-amber-500 text-white">
+              Completo
+            </Text>
+          )}
         </View>
         <Text className="mb-3 text-xl font-bold">{course.cur_titulo}</Text>
         <View>
@@ -27,11 +37,18 @@ export default function CourseCardSubbed({ course, navigation }) {
           />
         </View>
         <View className="flex-row justify-between mt-1 mb-4">
-          <Text>Módulos {course?.completos} / {course?.quantidade}</Text>
+          <Text>
+            Módulos {course?.completos} / {course?.quantidade}
+          </Text>
         </View>
-        <Button 
+        <Button
           text="Continuar"
-          onPress={() => navigation.navigate("subscribed", {'id': course.cur_id})}
+          onPress={() =>
+            navigation.jumpTo("courseSubscribed", {
+              screen: "subscribed",
+              params: { id: course.cur_id },
+            })
+          }
         />
       </View>
     </TouchableOpacity>

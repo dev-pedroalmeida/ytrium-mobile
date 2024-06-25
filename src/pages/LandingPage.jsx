@@ -4,6 +4,7 @@ import gradient from "../../assets/image3.png";
 import Button from "../components/Button";
 import { useState } from "react";
 import SignUp from "../components/SignUp"
+import Navbar from "../components/Navbar";
 
 export default function LandindPage({navigation, route}) {
 
@@ -15,6 +16,7 @@ export default function LandindPage({navigation, route}) {
         source={gradient}
         className="h-screen w-screen absolute -top-28 "
       ></ImageBackground>
+      <Navbar props={{navigation, route}} />
       <View className="mt-24 px-4">
         <Text className="text-4xl text-center font-black mb-6">
           Aprenda no Seu Ritmo, Conquiste o Futuro

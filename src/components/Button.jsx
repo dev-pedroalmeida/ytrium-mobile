@@ -11,6 +11,7 @@ export default function Button({ text = "", variant = "default", children, onPre
                     ${variant === "secondary" && "bg-amber-400"}
                     ${variant === "text" && "bg-transparent shadow-none"}
                     ${variant === "action" && "bg-transparent shadow-none p-1"}
+                    ${disabled === true && "bg-amber-500/20 shadow-none"}
                     ${classes}`}
       >
         <Text
@@ -19,7 +20,7 @@ export default function Button({ text = "", variant = "default", children, onPre
             ${variant === "secondary" && "text-zinc-900/90"}
             ${variant === "text" && "text-zinc-800 underline"}
             ${variant === "action" && "text-zinc-800"}
-            ${disabled === true && "text-neutral-600/70"}
+            ${disabled === true && "text-zinc-600/70"}
           `}
         >
           {text}

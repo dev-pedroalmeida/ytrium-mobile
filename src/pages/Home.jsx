@@ -1,9 +1,10 @@
 import { FlatList, Text, View } from "react-native";
 import CourseCard from "../components/CourseCard";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
-export default function Home({navigation}) {
+export default function Home() {
 
   const [coursesList, setCoursesList] = useState([])
 
@@ -27,9 +28,9 @@ export default function Home({navigation}) {
     })
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     getAllCourses()
-  }, [])
+  }, []))
 
   return (
     <View className="px-4 py-2 mb-12">
@@ -39,7 +40,7 @@ export default function Home({navigation}) {
         refreshing={refreshing}
         onRefresh={onRefresh}
         data={coursesList}
-        renderItem={({item}) => <CourseCard course={item} navigation={navigation} />}
+        renderItem={({item}) => <CourseCard course={item} />}
         keyExtractor={item => item.cur_id}
         ItemSeparatorComponent={() => (
           <View className="h-1"></View>

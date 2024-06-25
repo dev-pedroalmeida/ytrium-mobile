@@ -1,9 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
-export default function CourseCard({ course, navigation }) {
+export default function CourseCard({ course, isProfile = false }) {
+
+  const navigation = useNavigation()
+
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("course", {'id': course.cur_id})} className="mb-4">
+    <TouchableOpacity onPress={() => navigation.navigate("course", {id: course.cur_id})} className="mb-4">
       <View className="p-4 bg-white rounded-md min-w-[90vw] max-w-[90vw]">
         <View className="flex-row items-center mb-3 overflow-hidden">
           <Ionicons name="sparkles" size={20} color={"#F59E0B"} />
@@ -26,7 +30,9 @@ export default function CourseCard({ course, navigation }) {
           />
         </View>
         <View className="flex-row justify-between mt-3">
-          <Text>{course.cur_qtdInscritos} inscritos</Text>
+          {!isProfile &&
+            <Text>{course.cur_qtdInscritos} inscritos</Text>
+          }
           <Text className="p-1 bg-amber-500 text-white rounded font-bold">
             {course.cur_dificuldade}
           </Text>

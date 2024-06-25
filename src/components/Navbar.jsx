@@ -20,7 +20,7 @@ export default function Navbar({ props }) {
     <View className="p-4 items-center justify-between flex-row h-fit mt-4">
       <View className="items-center flex-row">
         {route.name !== "landing" && (
-          <Button variant="action" classes="px-0 py-1 mr-3">
+          <Button variant="action" classes="px-0 py-1 mr-3" onPress={() => navigation.openDrawer()}>
             <Ionicons name="menu" size={28} />
           </Button>
         )}
@@ -46,6 +46,7 @@ export default function Navbar({ props }) {
           />
         </>
       ) : (
+        route.name !== "profile" &&
         <>
           <TouchableOpacity onPress={() => setIsProfile(true)} className="h-10 w-10 bg-amber-500 rounded-full flex items-center justify-center">
             <Octicons name="person" size={28} color={"#fff"} />
