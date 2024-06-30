@@ -37,11 +37,11 @@ export default function ModulePage({ route, navigation }) {
                   navigation.dispatch(StackActions.popToTop())
                 }
               }
-              setCourse(currCourse);
             }).catch(err => console.log(err))
           }
         }
       });
+      setCourse(currCourse);
     }, [course])
   );
 
